@@ -11,22 +11,12 @@ class matrix:
         z_matrix = [[0 for j in range(m)] for i in range(n)]
         return z_matrix
 
-    def set_SimpleMatrix(self, n, m):
+    def set_SimpleMatrix(self):
         num = 1
         for i in range(self.rows):
             for j in range(len(self.cols)):
                 self.matrix[i][j] = num
                 num += 1
-    
-    def get_RandomMatrix(self, low, high):
-        '''
-        num = np.random.randint(low, high)
-        
-        for i in range(self.rows):
-            for j in range(self.cols):
-                self.matrix[i][j] = num
-                num = np.random.randint(low, high)
-        '''
          
     def set_RandomMatrix(self, low, high):
         num = np.random.randint(low, high)
@@ -48,3 +38,14 @@ class matrix:
         for i in range(self.rows):
             matrixRow = str(self.matrix[i])
             print(matrixRow)
+        
+        print("")
+
+    def appendZeroCol(self):
+        for i in range(0, self.rows):
+            self.matrix[i].insert(self.rows, 0)
+        self.cols += 1
+
+    def appendZeroRow(self):
+        self.matrix.append([0 for j in range(self.cols)])
+        self.rows += 1
