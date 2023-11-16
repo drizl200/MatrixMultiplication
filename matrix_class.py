@@ -14,7 +14,7 @@ class matrix:
     def set_SimpleMatrix(self):
         num = 1
         for i in range(self.rows):
-            for j in range(len(self.cols)):
+            for j in range(self.cols):
                 self.matrix[i][j] = num
                 num += 1
          
@@ -49,6 +49,15 @@ class matrix:
     def appendZeroRow(self):
         self.matrix.append([0 for j in range(self.cols)])
         self.rows += 1
+
+    def removeCol(self):
+        for i in range(0, self.rows):
+            self.matrix[i].pop()
+        self.cols -= 1
+
+    def removeRow(self):
+        self.matrix.pop()
+        self.rows -= 1
 
     def matrix_ViableAdd(self, other_mat):
         match = (self.cols == other_mat.cols and self.rows == other_mat.rows)

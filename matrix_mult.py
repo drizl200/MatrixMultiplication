@@ -26,6 +26,29 @@ def matrix_2k(MatM):
 
     return m
 
+def matrix_KillZeros(MatM):
+    m = matrix(MatM.rows, MatM.cols)
+    m = MatM
+    #remove zero columns
+    for j in range(m.cols-1, 0, -1):
+        is_zero_col = True
+        for i in range(m.rows):
+            if m.matrix[i][j] != 0:
+                is_zero_col = False
+        if is_zero_col:
+            m.removeCol()
+
+    #remove zero rows
+    for i in range(m.rows -1, 0, -1):
+        is_zero_row = True
+        for j in range(m.cols):
+            if m.matrix[i][j] != 0:
+                is_zero_row = False
+        if is_zero_row:
+            m.removeRow()
+
+    return m
+            
 def matrix_Naive(MatA, MatB):
     if not matrix_ViableMult(MatA, MatB):
         raise ValueError("The columns of Matrix A do not match rows of Matrix B!")
@@ -109,5 +132,5 @@ def matrix_Strassen(MatA, MatB):
             c.matrix[i][j+split_index] = c12.matrix[i][j]
             c.matrix[i+split_index][j] = c21.matrix[i][j]
             c.matrix[i+split_index][j+split_index] = c22.matrix[i][j]
-
+            
     return c
