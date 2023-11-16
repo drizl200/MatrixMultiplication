@@ -6,8 +6,8 @@ from matrix_class import *
 from matrix_mult import *
 
 if __name__ == "__main__":
-    m1 = matrix(1000,1000)
-    m2 = matrix(1000,1000)
+    m1 = matrix(1024,1024)
+    m2 = matrix(1024,1024)
 
     m1.set_RandomMatrix(1,100)
     m2.set_RandomMatrix(1,100)

@@ -67,9 +67,9 @@ def matrix_Strassen(MatA, MatB):
         raise ValueError("Columns of Matrix A do not Match Columns of Matrix B!")
         return
     
-    if MatA.cols == 1:
-        m = matrix(1, 1)
-        m.matrix[0][0] = MatA.matrix[0][0] * MatB.matrix[0][0]
+    # new base case
+    if MatA.cols == 16:
+        m = matrix_Naive(MatA, MatB)
         return m
     
     MatA = matrix_2k(MatA)
@@ -132,5 +132,5 @@ def matrix_Strassen(MatA, MatB):
             c.matrix[i][j+split_index] = c12.matrix[i][j]
             c.matrix[i+split_index][j] = c21.matrix[i][j]
             c.matrix[i+split_index][j+split_index] = c22.matrix[i][j]
-            
+
     return c
