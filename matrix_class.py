@@ -43,9 +43,34 @@ class matrix:
 
     def appendZeroCol(self):
         for i in range(0, self.rows):
-            self.matrix[i].insert(self.rows, 0)
+            self.matrix[i].append(0)
         self.cols += 1
 
     def appendZeroRow(self):
         self.matrix.append([0 for j in range(self.cols)])
         self.rows += 1
+
+    def matrix_ViableAdd(self, other_mat):
+        match = (self.cols == other_mat.cols and self.rows == other_mat.rows)
+        return match
+
+    def __add__(self, other_mat):
+        if not self.matrix_ViableAdd(other_mat):
+            raise ValueError("Matrix A and Matrix B are not the same dimensions")
+            return
+        
+        dim = self.rows
+        m = matrix(dim, dim)
+        for i in range(dim):
+            for j in range(dim):
+                m.matrix[i][j] = self.matrix[i][j] + other_mat.matrix[i][j]
+
+        return m
+
+    def __mul__(self, scalar):
+        m = matrix(self.rows, self.cols)
+        for i in range(m.rows):
+            for j in range(m.cols):
+                m.matrix[i][j] = scalar * self.matrix[i][j]
+        
+        return m
