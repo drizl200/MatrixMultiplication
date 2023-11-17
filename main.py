@@ -6,11 +6,12 @@ from matrix_class import *
 from matrix_mult import *
 
 if __name__ == "__main__":
-    m1 = matrix(1024,1024)
-    m2 = matrix(1024,1024)
+    _dim = 500
+    m1 = matrix(_dim,_dim)
+    m2 = matrix(_dim,_dim)
 
-    m1.set_RandomMatrix(1,100)
-    m2.set_RandomMatrix(1,100)
+    m1.set_RandomMatrix(-100,100)
+    m2.set_RandomMatrix(-100,100)
 
     st = time.process_time()
 
