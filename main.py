@@ -1,61 +1,59 @@
 import numpy as np
 import time
-np.random.seed(1)
+np.random.seed(int(time.time())) 
 
 from matrix_class import *
 from matrix_mult import *
 
-if __name__ == "__main__":
-    _dim = 500
+DIM = 4
+RANGE_LOW = -100
+RANGE_HIGH = 100
+
+def matrix_pair(_dim, range_low, range_high):
     m1 = matrix(_dim,_dim)
     m2 = matrix(_dim,_dim)
 
-    m1.set_RandomMatrix(-100,100)
-    m2.set_RandomMatrix(-100,100)
+    m1.set_RandomMatrix(range_low, range_high)
+    m2.set_RandomMatrix(range_low, range_high)
+    return m1, m2
+                                    
+def naive_test():
+    m1, m2 = matrix_pair(DIM, RANGE_LOW, RANGE_HIGH)                                            
+    return time_test(matrix_Naive, m1, m2)
 
+def strassen_test():
+    m1, m2 = matrix_pair(DIM, RANGE_LOW, RANGE_HIGH)
+    return time_test(matrix_Strassen, m1, m2)
+
+def time_test(alg, MatA, MatB, algName = ""):
     st = time.process_time()
 
-    m3 = matrix_Naive(m1, m2)
+    m = alg(MatA, MatB)
 
     et = time.process_time()
     res = et - st
-    print("------ Naive ------")
-    print("CPU Execution time:", res, "seconds")
+    if algName == "":
+        return res
+    else: 
+        print("------ ", algName ," ------")
+        print("CPU Execution time:", res, "seconds")
+        return res
 
-    st = time.process_time()
+if __name__ == "__main__":
+    data_naive = []
+    data_strassen = []
+    for i in range(1): 
+        data_naive.append(naive_test())
+        data_strassen.append(strassen_test())
+        if i == 0:
+            print("Starting point:")
+            print(data_naive[i])
+            print(data_strassen[i])
 
-    m3 = matrix_Strassen(m1, m2)
+        if i == 14:
+            print("half way: ", time.time())
 
-    et = time.process_time()
-    res = et - st
-    print("------ Strassen ------")
-    print("CPU Execution time:", res, "seconds")
-
-def matrix_mult_test():
-    m1 = matrix(2,3)
-    m2 = matrix(3,2)
-
-    m1.set_RandomMatrix(1,10)
-    m2.set_RandomMatrix(1,10)
-
-    """m3stable = matrix_Naive(m1, m2)
-    m3test = matrix_Strassen(m1, m2)"""
-    
-    m3stable = matrix_Naive(m1, m2)
-    m3test = matrix_Strassen(m1, m2)
-
-    print("Here are our two matrices: ")
-
-    m1.printMatrix()
-    m2.printMatrix()
-
-    print("=========================")
-
-    print("Output: ")
-
-    m3stable.printMatrix()
-    m3test.printMatrix()
-
-    """m3stable.printMatrix()
-    m3test.printMatrix()"""
-    
+    print(data_naive)
+    print("naive alg average: ", np.mean(data_naive))
+    print(data_strassen)
+    print("strassen alg average: ", np.mean(data_strassen))

@@ -66,11 +66,15 @@ def matrix_Strassen(MatA, MatB):
     if not matrix_ViableMult(MatA, MatB):
         raise ValueError("Columns of Matrix A do not Match Columns of Matrix B!")
         return
-    
-    # new base case
-    if MatA.cols == 16:
+    #new base case
+    if MatA.cols <= 64:
         m = matrix_Naive(MatA, MatB)
         return m
+    
+    # if MatA.cols == 1:
+    #     m = matrix(1,1)
+    #     m.matrix[0][0] = MatA.matrix[0][0] * MatB.matrix[0][0]
+    #     return m
     
     MatA = matrix_2k(MatA)
     MatB = matrix_2k(MatB)
